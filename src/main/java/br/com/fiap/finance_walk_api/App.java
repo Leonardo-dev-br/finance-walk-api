@@ -10,13 +10,7 @@ import io.swagger.v3.oas.annotations.info.Info;
 
 @SpringBootApplication
 @EnableCaching
-@OpenAPIDefinition(info = @Info(
-	title = "API Finance Walk",
-	version = "v1",
-	description = "API do SaS Finance Walk de controle de Finanças",
-	contact = @Contact(name = "Leonardo", email = "leonardo@gmail.com")
-	) 
-)
+@OpenAPIDefinition(info = @Info(title = "API Finance Walk", version = "v1", description = "API do SaaS Finance Walk de controle financeiro", contact = @Contact(name = "João Lima", email = "joao@fiap.com.br")))
 public class App {
 
 	public static void main(String[] args) {

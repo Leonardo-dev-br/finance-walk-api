@@ -28,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/categories")
 // @CrossOrigin(origins = "http://localhost:3000")
 @Slf4j
-@Cacheable(value = "categories") //dá o nome do cache de todos os metodos dessa classe
+@Cacheable(value = "categories")
 public class CategoryController {
 
     @Autowired // injeção de dependência
@@ -36,16 +36,14 @@ public class CategoryController {
 
     @GetMapping
     @Cacheable
-    @Operation(summary = "Listar todas as categorias",
-        description = "Lista categorias salvas para determinado usuário",
-        tags = "Category") //Informações complementares de Operação
+    @Operation(summary = "Listar todas categorias", description = "Lista todas as categorias salvas para um determinado usuário", tags = "Category")
     public List<Category> index() {
         return repository.findAll();
     }
 
     @PostMapping
     @CacheEvict(allEntries = true)
-    @Operation(responses = @ApiResponse(responseCode = "400"), deprecated = true)
+    @Operation(responses = @ApiResponse(responseCode = "400"))
     @ResponseStatus(HttpStatus.CREATED)
     public Category create(@RequestBody @Valid Category category) {
         log.info("Cadastrando categoria " + category.getName());
@@ -59,6 +57,7 @@ public class CategoryController {
     }
 
     @DeleteMapping("{id}")
+    @CacheEvict(allEntries = true)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void destroy(@PathVariable Long id) {
         log.info("Apagando categoria " + id);
@@ -66,6 +65,7 @@ public class CategoryController {
     }
 
     @PutMapping("{id}")
+    @CacheEvict(allEntries = true)
     public Category update(@PathVariable Long id, @RequestBody Category category) {
         log.info("Atualizando categoria " + id + " " + category);
 
